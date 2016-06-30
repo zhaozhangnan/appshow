@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+	<title>活动详情页</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+	var _smq = _smq || [];
+	_smq.push(['_setAccount', '1662cbe', new Date()]);
+	_smq.push(['_setClickTimeOut', 300]); 
+	_smq.push(['pageview']);
+
+	(function() {
+	var sm = document.createElement('script'); sm.type = 'text/javascript'; sm.async = true;
+	sm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdnmaster.com/sitemaster/collect.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sm, s);
+	})();
+	</script>
+</head>
+<body>
+	<div class="main">
+		<img src="images/act_list_bg.jpg" alt="">
+		<a class="actlist1" id="actlist1" href="javascript:;" onclick="_smq.push(['custom', 'huodongxiangqing', '05_hdxq-gengduojixing']);"></a>
+		<a class="actlist2" id="actlist2" href="index.html" onclick="_smq.push(['custom', 'huodongxiangqing', '06_hdxq-fanhuishouye']);"></a>
+		<a class="acttel" href="tel:4007002686" onclick="_smq.push(['custom', 'huodongxiangqing', '07_hdxq-bddh']);"></a>
+		<a class="urlgo" href="http://touch.acer.com.cn/go" onclick="_smq.push(['custom', 'huodongxiangqing', '08_hdxq-djtz']);"></a> 
+		<div class="moretype" id="moretype">
+			<img src="images/more_type.jpg" alt="">
+			<a class="close" id="close" href="javascript:;"></a>
+			<a class="urlgo2" href="http://touch.acer.com.cn/go" onclick="_smq.push(['custom', 'jixingjieshao', '09_jxjs-djtz']);"></a>
+		</div>
+	</div>
+</body>
+<script src="js/common.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#actlist1").click(function(){
+			$("#moretype").show();
+		});
+
+		$("#close").click(function(){
+			$("#moretype").hide();
+		});
+	});
+</script>
+</html>

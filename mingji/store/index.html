@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/common.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<title>进店有礼页</title>
+</head>
+<body>
+	<div class="main" id="main">
+		<img src="images/shopaward_bg.jpg" alt="">
+		<a class="sleft" id="sleft" href="javascript:;"></a>
+		<a class="sright" id="sright" href="javascript:;"></a>
+		<ul class="scroll" id="scroll">
+			<li>
+				<img src="images/notebook_shop.png" alt="笔记本">
+				<img src="images/computer_shop.png" alt="电脑">
+				<img src="images/flat_shop.png" alt="平板">
+			</li>
+		</ul>
+		<input class="submit_tel" id="submit_tel" type="submit_tel" value="" required="required" Pattern="/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/" placeholder="输入手机号码" >
+		<a class="submit" id="submit" href="javascript:;"></a>
+		<a class="into_shop" id="into_shop" href="javascript:;"></a>
+		<a class="more_list" id="more_list" href="../index.html"></a>
+		<!-- 进店有礼 -->
+		<div class="shopback" id="shopback">
+			<img src="images/shopback_bg.jpg" alt="">
+			<a class="shopclose" id="shopclose" href="javascript:;"></a>
+		</div>
+		<!-- 中奖模块 -->
+		<div class="win" id="win">
+			<img src="images/win_bg.jpg" alt="">
+			<div class="awardinfo">
+				<em id="awardcode"></em>
+				<a class="win_a_url" href="http://www.lvmama.com/cards"></a>
+			</div>
+		</div>
+		<!-- 未中奖模块 -->
+		<div class="nowin" id="nowin">
+			<img src="images/nowin.jpg" alt="">
+		</div>
+	</div>
+</body>
+<script src="js/common.js"></script>
+<script>
+$(document).ready(function(){
+
+	var lft = 0;
+	$("#sright").click(function(){
+		if(lft <= -580){
+			return;
+		}
+		lft -= 290;
+		move();
+	});
+
+	$("#sleft").click(function(){
+		if(lft < 0){
+			lft += 290;
+			move();
+		}else{
+			return
+		}
+	});
+
+	function move(){
+		$("#scroll li").animate({
+			left: lft + "px"
+		},2000);
+	}
+
+	$("#submit").on("click",function(){
+		if (!matchMobile(dat)) {
+		    alert('请输入正确的手机号');
+		    return;
+		}else{
+			request(dat);
+		}
+	});
+	var dat = null;
+
+	function matchMobile(){
+		dat = $("#submit_tel").val();
+		var valnew = trim(dat);
+		if(valnew.match(/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function request(dat){
+		$.ajax({
+			url: "http://ama.adwo.com/advmessage/adv/addResultJsonP.action?advid=30057&mobile="+dat,
+			cache: false,
+			dataType: "jsonp",
+			jsonpCallback: "eventcallback",
+			data: dat,
+			success: award
+		});
+	}
+
+	function award(data){
+		if(data[0].success == 1){
+			$.ajax({
+				url: "http://ama.adwo.com/advmessage/djadvtrophy/awardJsonP.action?advid=30057&userinfo="+dat+"&resultid="+data[0].id,
+				cache: false,
+				dataType: "jsonp",
+				jsonpCallback: "eventcallback",
+				success: function(da){
+					if((da[0].award == 1) && !!(da[0].prize)){
+						$("#awardcode").html(da[0].code);
+						$("#win").show();
+					}else if((da[0].award == 0) && !!(da[0].prize)){
+						$("#awardcode").html(da[0].code);
+						$("#win").show();
+					}else{
+						$("#nowin").show();
+					}
+				}
+			});
+		}
+	}
+
+	$("#main").on("click",function(){
+		$("#nowin").hide();
+		$("#win").hide();
+	});
+
+	//删除左右两端的空格
+	function trim(str){
+		return str.replace(/(^\s*)|(\s*$)/g, "");
+	}
+
+	$("#into_shop").click(function(){
+		$("#shopback").show();
+	});
+
+	$("#shopclose").click(function(){
+		$("#shopback").hide();
+	});
+});
+</script>
+</html>

@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=32f17d2ee72f43e31a28fe2bfe840b96"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+	<title>广告首页</title>
+	<script type="text/javascript">
+	var _smq = _smq || [];
+	_smq.push(['_setAccount', '1662cbe', new Date()]);
+	_smq.push(['_setClickTimeOut', 300]); 
+	_smq.push(['pageview']);
+
+	(function() {
+	var sm = document.createElement('script'); sm.type = 'text/javascript'; sm.async = true;
+	sm.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdnmaster.com/sitemaster/collect.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sm, s);
+	})();
+	</script>
+</head>
+<body>
+	<div class="main">
+		<img src="images/first_bg.jpg" alt="">
+		<div class="header">
+			<a class="link1" id="link1" href="javascript:;"></a>
+			<a class="link2" id="link2" href="javascript:;"></a>
+			<ul id="roll" class="roll">
+				<li>
+					<a href="javascript:;"><img src="images/notebook.png" alt="笔记本" onclick="_smq.push(['custom', 'homepage', '04_dianjimorejixing']);"></a>
+					<a href="javascript:;"><img src="images/computer.png" alt="电脑" onclick="_smq.push(['custom', 'homepage', '04_dianjimorejixing']);"></a>
+					<a href="javascript:;"><img src="images/flat.png" alt="平板" onclick="_smq.push(['custom', 'homepage', '04_dianjimorejixing']);"></a>
+				</li>
+			</ul>
+			<a class="link3" id="link3" href="act_list.html" onclick="_smq.push(['custom', 'homepage', '01_huodongxiangqing']);"></a>
+			<a class="link4" id="link4" href="javascript:;" onclick="_smq.push(['custom', 'homepage', '02_jindianyouli']);"></a>
+			<a class="link5" id="link5" href="javascript:;" onclick="_smq.push(['custom', 'homepage', '03_gengduojixing']);"></a>
+		</div>
+		<div class="content" id="allmap"></div>
+		<!-- 更多机型 -->
+		<div class="moretype" id="moretype">
+			<img src="images/more_type.jpg" alt="">
+			<a class="close" id="close" href="javascript:;"></a>
+			<a class="urlgo2" href="http://touch.acer.com.cn/go" onclick="_smq.push(['custom', 'jixingjieshao', '09_jxjs-djtz']);"></a>
+		</div>
+		<!-- 进店有礼 -->
+		<div class="shopback" id="shopback">
+			<img src="images/shopback_bg.jpg" alt="">
+			<a class="shopclose" id="shopclose" href="javascript:;"></a>
+		</div>
+	</div>
+</body>
+<script>
+/*平板，电脑，笔记本滚动模块*/
+$(document).ready(function(){
+	showPosition2(116.404, 39.915);
+    //getLocation();
+
+	var lft = 0;
+	$("#link2").click(function(){
+		if(lft <= -680){
+			return;
+		}
+		lft -= 340;
+		move();
+	});
+
+	$("#link1").click(function(){
+		if(lft < 0){
+			lft += 340;
+			move();
+		}else{
+			return
+		}
+	});
+
+	function move(){
+		$("#roll li").animate({
+			left: lft + "px"
+		},2000);
+	}
+
+	$("#link5").click(function(){
+		$("#moretype").show();
+	});
+
+	$("#close").click(function(){
+		$("#moretype").hide();
+	});
+
+	$("#link4").click(function(){
+		$("#shopback").show();
+	});
+
+	$("#shopclose").click(function(){
+		$("#shopback").hide();
+	});
+
+	$("#roll li a").click(function(){
+		$("#moretype").show();
+	});
+
+});
+
+
+/*地图模块*/
+var lon,lat;        
+var map = null;
+/*地理定位*/
+function getLocation(){
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    }else{
+       alert("该浏览器不支持地理定位!");
+    }
+}
+            
+/*电脑端测试函数*/
+function showPosition2(posX, posY){
+    map = new BMap.Map("allmap");            // 创建Map实例
+
+    var point = new BMap.Point(posX, posY);    // 创建点坐标
+    map.centerAndZoom(point,15);                     // 初始化地图,设置中心点坐标和地图级别。
+    map.enableScrollWheelZoom(); 
+    GetNearDealers(posX, posY);
+    var mkr = new BMap.Marker(posX,posY);
+    map.addOverlay(mkr);
+}
+
+function showPosition(position){
+    map = new BMap.Map("allmap");            // 创建Map实例
+    lon = position.coords.longitude;         //获取经度
+    lat = position.coords.latitude;          //获取纬度
+    var point = new BMap.Point(lon, lat);    // 创建点坐标
+
+    map.centerAndZoom(point,15);                     // 初始化地图,设置中心点坐标和地图级别。
+    map.enableScrollWheelZoom();                  //启用滚轮放大缩小，默认禁用
+    GetNearDealers(lon,lat);
+    var mkr = newBMap.Marker(newBMap.Point(lon,lat));
+    map.addOverlay(mkr);
+}
+
+function showError(error){
+    switch(error.code){
+        case error.PERMISSION_DENIED:
+          alert("用户拒绝对地理位置要求!");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("位置信息是不可用!");
+          break;
+        case error.TIMEOUT:
+          alert("获取用户位置请求超时!");
+          break;
+        case error.UNKNOWN_ERROR:
+          alert("发生了一个不明错误!");
+          break;
+    }
+}
+function GetNearDealers(lon,lat){
+    var url='http://ama.adwo.com/advmessage/dealer/getDealerJsonP.action?advid=30057&lng=' + lon + '&lat=' + lat + '&radius=2000';
+    $.ajax({
+        url: url,
+        cache: false,
+        dataType : 'jsonp',
+        jsonpCallback: "eventcallback",
+        data: {
+          lng : lon,
+          lat : lat,
+          radius : 3500
+        },
+        success: setDealers
+    });
+}
+function setDealers(j){
+    var marker,point;
+    if(j[0].length==0){
+        alert("您附近近距离可能没有店！");
+        return;
+    }
+    for (var i = 0; i < j[0].length; i ++) {
+        point = new BMap.Point(j[0][i].longitude, j[0][i].latitude);
+        var icon = new BMap.Icon('images/map_pot.png', new BMap.Size(32, 40), {
+		anchor: new BMap.Size(10, 30)
+		});
+        marker = new BMap.Marker(point,{
+        	icon: icon
+        });
+        map.addOverlay(marker);
+        marker.ind = i;
+        marker.addEventListener("click", function(){ 
+        var content ="<div style='font-size:12px;width: 300px;margin-top:10px;'>" + "<h4 style='margin:0 0 5px 0;padding:0.2em 0;'>"+j[0][this.ind].dealerName+"</h4>" /*+ "<img style='float:right;margin:4px;width:139px;height:104px;' id='img' src='' title="+j[0][this.ind].dealerName+">" + "<p style='margin:0;line-height:1.5;font-size:8px;text-indent:2em;-webkit-text-size-adjust:none;'>电话<a style='color:#000;' href='tel:"+j[0][this.ind].dealerTel+"'>："+j[0][this.ind].dealerTel+"</a></p>*/+"<p style='margin:0;line-height:1.5;font-size:8px;text-indent:2em;-webkit-text-size-adjust:none;'>地址："+j[0][this.ind].dealerAddress+"</p>" + "</div>";
+        var infoWindow = new BMap.InfoWindow(content,{enableMessage:false});         
+        this.openInfoWindow(infoWindow);
+        });
+    }
+}
+</script>
+<script src="js/common.js"></script>
+</html>

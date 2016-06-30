@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>预约试驾</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<link rel="stylesheet" href="css/order.css">
+	<script type="text/javascript" src="js/dealer.js"></script>
+	<script type="text/javascript" src="js/json.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/trackEvent.js"></script>
+</head>
+<body onload="resetPage()">
+<div class="frame">
+	<div class="header">
+		<img src="images/header.jpg" alt="">
+		<a href="###" class="sub"></a>
+		<a href="###" class="goback"></a>
+	</div>
+	<div class="content">
+		<img src="images/order.jpg" alt="" class="order">
+		<input type="text" placeholder="姓名" class="name">
+		<select name="" id="" class="sex">
+			<option value="1">先生</option>
+			<option value="2">女士</option>
+		</select>
+		<input type="text" placeholder="电话" class="phone">
+		<input type="text" placeholder="邮箱" class="mail">
+		<select name="" id="" class="time">
+			<option value="">预计购买时间</option>
+			<option value="3个月内">3个月内</option>
+			<option value="4-6个月">4-6个月</option>
+			<option value="7-12个月">7-12个月</option>
+			<option value="一年以上">一年以上</option>
+			<option value="暂不考虑">暂不考虑</option>
+		</select>
+		<select name="" id="" class="budget">
+			<option value="">购车预算</option>
+			<option value="小于 20万">小于 20万</option>
+			<option value="20万-30万">20万-30万</option>
+			<option value="30万-40万">30万-40万</option>
+			<option value="40万-50万">40万-50万</option>
+			<option value="50万-60万">50万-60万</option>
+			<option value="60万-70万">60万-70万</option>
+			<option value="70万-80万">70万-80万</option>
+			<option value="80万-90万">80万-90万</option>
+			<option value="90万-100万">90万-100万</option>
+			<option value="100万-110万">100万-110万</option>
+			<option value="110万-120万">110万-120万</option>
+			<option value="120万-130万">120万-130万</option>
+			<option value="130万-140万">130万-140万</option>
+			<option value="140万-150万">140万-150万</option>
+			<option value="150万以上">150以上</option>
+		</select>
+		<select name="" id="" class="type">
+			<option value="甲壳虫">甲壳虫</option>
+		</select>
+		<select name="" id="" class="province" onchange="p_change();"></select>
+		<select name="" id="" class="city" onchange="c_change();"></select>
+		<select name="" id="" class="dealer"></select>
+		<!-- <div class="xz">
+			<input type="radio" name="che" value="1" class="yes" checked>
+			<input type="radio" name="che" value="0" class="no">
+		</div>
+		<select name="" id="" class="brand" onchange="b_change();" style="font-size:10px;"></select>
+		<select name="" id="" class="model" style="font-size:10px;"></select> -->
+		<div class="statement">
+			<input type="checkbox" class="box">
+			<span>我同意接受并遵守<a href="###" class="sm">数据保护条款</a>规定。</span>
+		</div>
+		<a href="###" id="submit"></a>
+	</div>
+	<div class="footer">
+		©2014 Volkswagen | 版权及免责声明
+	</div>
+	<div class="share">
+		<a href="###" class="weibo"></a>
+	</div>
+	<div class="share2">
+	</div>
+	<div class="bj"></div>
+	<img src="images/sm.png" alt="" class="sm_1">
+	<a href="###" class="gb_1"></a>
+</div>
+</body>
+<script>
+/*屏幕自适应*/
+var deviceWidth = 0;
+var deviceHeight = 0;
+function resetPage() {
+    deviceWidth = document.documentElement.clientWidth;
+    deviceHeight = document.documentElement.clientHeight;
+    var scale = deviceWidth / 320;
+    document.body.style.zoom = scale;
+    // $('.share').css({'top':(deviceHeight-302)/2,'left':(deviceWidth-302)/2});
+    // $('.share2').css({'top':(deviceHeight-302)/2,'left':(deviceWidth-302)/2});
+    $('.share').css({'top':'100px','left':'9px'});
+    $('.share2').css({'top':'100px','left':'9px'});
+}
+window.onresize = function () {
+    resetPage();
+}
+/*判断进入方式*/
+function QueryString(){
+    var name,value,i;
+    var str=location.href;
+    var num=str.indexOf("?");
+    str=str.substr(num+1);
+    var arrtmp=str.split("&");
+    for(i=0;i < arrtmp.length;i++){
+        num=arrtmp[i].indexOf("=");
+        if(num>0){
+            name=arrtmp[i].substring(0,num);
+            value=arrtmp[i].substr(num+1);
+            this[name]=value;
+        }
+    }
+}
+var Request = new QueryString();
+var source = Request['source'];
+/*经销商选择*/
+function p_change(){
+	for(var j = 0;j < excel2.length;j ++){
+		$('.province').append($("<option value='" + excel2[j].Code + "'>" + excel2[j].Name + "</option>"));
+	}
+	$(".city").html("...");
+    c_change();
+    $(".dealer").html("...");
+    d_change();
+}
+function c_change(){
+	for(var j = 0;j < excel2.length;j ++){
+		if(parseInt($(".province").val()) == excel2[j].Code){
+			for(var i = 0;i < excel2[j].City.length;i ++){
+				$('.city').append($("<option value='" + excel2[j].City[i].Code + "'>" + excel2[j].City[i].Name + "</option>"));
+			}
+		}
+	}
+	$(".dealer").html("...");
+	d_change();
+}
+function d_change() {
+     for (var j = 0; j < excel2.length; j++) {
+        if (parseInt($(".province").val()) == excel2[j].Code) {
+             for (var i = 0; i < excel2[j].City.length; i++) {
+                if (parseInt($(".province").val()) == excel2[j].Code && parseInt($(".city").val()) == excel2[j].City[i].Code) {
+                    for (var k = 0; k < excel2[j].City[i].Dealer.length; k++) {
+                        $(".dealer").append($("<option value='" + excel2[j].City[i].Dealer[k].Code + "'>" + excel2[j].City[i].Dealer[k].Name + "</option>"));
+                    }
+                }   
+            }  
+        }
+    }
+}
+p_change();
+/*车辆品牌及车型*/
+function b_init(){
+	for(var j = 0;j < excel.length;j ++){
+		$('.brand').append($("<option value='" + excel[j].Code + "'>" + excel[j].Name + "</option>"));
+	}
+}
+b_init();
+function b_change(){
+	$(".model").html("...");
+	m_change();
+}
+function m_change(){
+	for(var j = 0;j < excel.length;j ++){
+		if(parseInt($(".brand").val()) == excel[j].Code){
+			for(var i = 0;i < excel[j].City.length;i ++){
+				$('.model').append($("<option value='" + excel[j].City[i].Code + "'>" + excel[j].City[i].Name + "</option>"));
+			}
+		}
+	}
+}
+b_change();
+/*数据提交*/
+var yes = document.getElementsByClassName('yes')[0];
+var patrn=/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$$/;
+var mailtest = /^([\w\.\-]+)@([\w\.\-]+)\.([\w]{2,4})$/;
+var imageid = localStorage.getItem("imageid");
+$('#submit').click(function(){
+	/*是否有车*/
+	// var xz = 1;
+	// if(!yes.checked){
+	// 	xz = 2;
+	// }else{
+	// 	xz = 1;
+	// }
+	if(!$('.name').val()){
+		alert("请输入姓名！");
+		return;
+	}
+	if($('.phone').val() == "" || !patrn.test($('.phone').val())){
+		alert('请输入正确的手机号！');
+		return;
+	}
+	if($('.mail').val() == "" || !mailtest.test($('.mail').val())){
+		alert('请输入正确的邮箱！');
+		return;
+	}
+	if(!$('.time').val()){
+		alert('请选择购买时间！');
+		return;
+	}
+	if(!$('.budget').val()){
+		alert('请选择购车预算！');
+		return;
+	}
+	if(!$('.type').val()){
+		alert('请选择试驾车型！');
+		return;
+	}
+	if(!$('.province').val()){
+		alert('请选择省份！');
+		return;
+	}
+	if(!($('.box').is(':checked'))){
+		alert('请阅读版权声明及免费声明规定。');
+		return;
+	}
+	// var url = "http://newcms.mobile1.com.cn/advmessage/adv/addResultJsonP.action?advid=20072&expand2=124&realname=" + $('.name').val() + "&mobile=" + $('.phone').val() + "&provinceid=" + $('.province').val() + "&provincename=" + $(".province").find("option:selected").text() + "&cityid=" + $('.city').val() + "&cityname=" + $(".city").find("option:selected").text() + "&dealerid=" + $('.dealer').val() + "&sex=" + $('.sex').val() + "&expand1=" + $('.time').val() + "," + $('.budget').val() + "&expand3=" + xz + "&expand4=" + $('.brand').find("option:selected").text() + "||" + $('.model').find("option:selected").text() + "&expand5=" + imageid + "&email=" + $('.mail').val() + "&description=" + $('.dealer').find("option:selected").text();
+	var url = "http://newcms.mobile1.com.cn/advmessage/adv/addResultJsonP.action?advid=20072&expand2=124&realname=" + $('.name').val() + "&mobile=" + $('.phone').val() + "&provinceid=" + $('.province').val() + "&provincename=" + $(".province").find("option:selected").text() + "&cityid=" + $('.city').val() + "&cityname=" + $(".city").find("option:selected").text() + "&dealerid=" + $('.dealer').val() + "&sex=" + $('.sex').val() + "&expand1=" + $('.time').val() + "," + $('.budget').val() + "&expand5=" + imageid + "&email=" + $('.mail').val() + "&description=" + $('.dealer').find("option:selected").text();
+	$.ajax({
+            type: "get",
+            url: url,
+            dataType : 'jsonp',
+            success: function (data) {
+                if(source == 1){
+                	$('.bj').show();
+                	$('.share2').show();
+                	// $('.weibo').show();
+                }else{
+                	localStorage.setItem("adid", data[0].id);
+                	$(".bj").show();
+                	$(".share").show();
+                	$('.weibo').show();
+                }
+            },
+            error:function(data){
+                alert("网络错误,请查看您的网络!");
+            }
+        });
+	track(20,10496);
+});
+/*点击预约试驾*/
+$('.sub').click(function(){
+    window.location.href = "order.html?source=1";
+    track(20,10484);
+});
+$('.goback').click(function(){
+    window.location.href = "index.html";
+    track(20,10485);
+});
+/*点击否时，隐藏车型及型号*/
+$('.no').click(function(){
+	$('.brand,.model').hide();
+	$('.brand').find("option:selected").text("");
+	$('.model').find("option:selected").text("");
+	// $('.model').val('0');
+});
+$('.yes').click(function(){
+	$('.brand,.model').show();
+	$('.brand').find("option:selected").text("A-阿斯顿马丁");
+	$('.model').find("option:selected").text("DB9");
+});
+/*分享关闭按钮*/
+$('.share').click(function(){
+	$('.bj').hide();
+	$('.share').hide();
+	window.location.href = "index.html";
+});
+$('.share2').click(function(){
+	$('.bj').hide();
+	$('.share2').hide();
+	window.location.href = "index.html";
+});
+/*微博分享*/
+$('.weibo').click(function(event){
+	track(20,10498);
+    var _url = encodeURIComponent(window.location.href);
+    var _imgurl = encodeURIComponent(localStorage.getItem("imageurl"));
+    var _log = localStorage.getItem("adid");
+    var _imgtype = localStorage.getItem("imgtype");
+    if(_imgtype == 0){
+    	var title = encodeURIComponent("好动：");
+    	var content = encodeURIComponent("#好动不是多动#内敛安静与我无关活泼好动才是天性无畏生活的束缚，朝着阳光生长做自己，随心而行@大众汽车甲壳虫");
+    }else if(_imgtype == 1){
+    	var title = encodeURIComponent("拉风：");
+    	var content = encodeURIComponent("#没错！这就是拉风#因为时尚前卫很抢眼或是炫酷活力而出众无论外形或内在，都要做到最出色做自己，风采不凡@大众汽车甲壳虫");
+    }else if(_imgtype == 2){
+    	var title = encodeURIComponent("恋旧：");
+    	var content = encodeURIComponent("#我就是有恋旧癖#不在乎别人看我老土、古董或是与世界格格不入我就是无法摆脱那时、那事的恋旧情结不忘初衷,方得始终做自己，致敬经典@大众汽车甲壳虫");
+    }
+    setTimeout(function () {
+        window.location.href = "http://newcms.mobile1.com.cn/ncallback/sinacallback?content=" + content + "&ad=jkc&k=jkc_root_sina&log=" + _log + "&img=" + _imgurl;
+	}, 500);
+    
+	event.stopPropagation();
+});
+/*声明浮层*/
+$('.sm').click(function(){
+	$('.bj').show();
+	$('.sm_1').show();
+	track(20,10497);
+});
+$('.gb_1').click(function(){
+	$('.bj').hide();
+	$('.sm_1').hide();
+});
+/*尾部声明点击*/
+$('.footer').click(function(){
+    window.location.href = "text.html";
+});
+track(20,10495);
+</script>
+</html>

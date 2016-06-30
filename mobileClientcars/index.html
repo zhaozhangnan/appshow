@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<title>甲壳虫首页</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="js/iScroll v4.2.5.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="js/trackEvent.js"></script>
+</head>
+<body onload="resetPage()">
+<div class="frame">
+	<div class="header">
+		<img src="images/header.png" alt="">
+        <a href="###" class="sub"></a>
+		<!--<a href="###" id="weibo" style="position: absolute;top:15px;right:0;z-index:2;font-size:10px;">新浪微博登录</a>-->
+	</div>
+	<div class="content">
+		<div id="roll">
+			<ul id="scroller">
+                <li><img src="images/show_3.jpg" alt="###"></li>
+                <li><img src="images/show_1.jpg" alt="###"></li>
+                <li><img src="images/show_2.jpg" alt="###"></li>
+                <li><img src="images/show_3.jpg" alt="###"></li>
+                <li><img src="images/show_1.jpg" alt="###"></li>
+            </ul>
+		</div>
+		<div class="change">
+			<p>◇◆◆</p>
+			<p>◆◇◆</p>
+			<p>◆◆◇</p>
+		</div>
+		<img src="images/left.png" class="left" alt="">
+        <img src="images/right.png" alt="" class="right">
+		<img src="images/show.png" alt="" class="show">
+		<div class="text">
+			<img src="images/content_text.png" alt="">
+			<a href="change2.html" onclick="track(20,10486);"></a>
+		</div>
+	</div>
+	<div class="footer">
+		©2014 Volkswagen | 版权及免责声明
+	</div>
+	
+    <a href="###" class="close"></a>
+    <div class="share3" onclick="close2();">
+        <a href="###" class="close2"></a>
+    </div>
+    <div class="share"></div>
+	<div class="bj" onclick="close2();"></div>
+</div>
+</body>
+<script>
+$('.close').click(function(){
+    window.location.href = "change2.html";
+    track(20,10499);
+});
+$('.share').click(function(){
+    $('.share').hide();
+    $(".bj").hide();
+    $('.close').hide();
+    window.location.href = "index.html";
+});
+function close2(){
+    $('.share3').hide();
+    $(".bj").hide();
+    $('.share').hide();
+    $('.close').hide();
+}
+/*屏幕自适应*/
+var deviceWidth = 0;
+var deviceHeight = 0;
+function resetPage() {
+    deviceWidth = document.documentElement.clientWidth;
+    deviceHeight = document.documentElement.clientHeight;
+    var scale = deviceWidth / 320;
+    document.body.style.zoom = scale;
+    $('.share').css({'top':'100px','left':'9px'});
+    $('.share3').css({'top':'100px','left':'9px'});
+}
+window.onresize = function () {
+    resetPage();
+}
+
+/*轮播图*/
+var myscroll = new iScroll("roll", {
+    hScrollbar: false, vScrollbar: false, snap: true,momentum:false, onScrollEnd: function () {
+        num = this.currPageX;
+        console.log(num);
+        if(num == 4){
+            myscroll.scrollToPage(1,0,0);
+        }
+        if(num == 0){
+            myscroll.scrollToPage(3,0,0);
+        }
+        $('.change p').css('display','none');
+        $('.change p').eq(num-1).css('display','block');
+    }
+});
+myscroll.scrollToPage(1,0,0);
+setInterval(function(){
+    num ++;
+    myscroll.scrollToPage(num,0,500);
+},4000);
+/*左右点击*/
+$('.left').click('on',function(){
+	num --;
+	myscroll.scrollToPage(num,0,500);
+});
+$('.right').click('on',function(){
+	num ++;
+	myscroll.scrollToPage(num,0,500);
+});
+/*点击预约试驾*/
+$('.sub').click(function(){
+    window.location.href = "order.html?source=1";
+    track(20,10484);
+});
+/*微博登陆*/
+$('#weibo').click(function(){
+	setTimeout(function(){
+		window.location.href = "http://newcms.mobile1.com.cn/ncallback/sinacallback?tag=login&ad=jkc&k=jkc_root_sina&callback=" + encodeURIComponent("?uid=%s&name=%s&head=%s");
+	}, 500);
+});
+function QueryString(){
+    var name,value,i;
+    var str=location.href;
+    var num=str.indexOf("?");
+    str=str.substr(num+1);
+    var arrtmp=str.split("&");
+    for(i=0;i < arrtmp.length;i++){
+        num=arrtmp[i].indexOf("=");
+        if(num>0){
+            name=arrtmp[i].substring(0,num);
+            value=arrtmp[i].substr(num+1);
+            this[name]=value;
+        }
+    }
+}
+var Request = new QueryString();
+var u = Request['u'];
+if (u) {
+    $(".bj").show();
+    $(".share").show();
+    $('.share3').hide();
+    $('.close').show();
+}
+/*尾部声明点击*/
+$('.footer').click(function(){
+    window.location.href = "text.html";
+    track(20,10487);
+});
+track(20,10483);
+</script>
+</html>

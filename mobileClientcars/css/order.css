@@ -1,0 +1,219 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.frame{
+	background: #fde500;
+}
+/*header样式*/
+.header img{
+	width: 320px;
+}
+.sub{
+	display: inline-block;
+	width: 60px;
+	height:44px;
+	position: absolute;
+	top: 0;
+	left: 10px;
+	z-index: 6;
+}
+.goback{
+	display: inline-block;
+	width: 180px;
+	height: 44px;
+	position: absolute;
+	top: 0;
+	left: 80px;
+	z-index: 6;
+}
+/*content样式*/
+.order{
+	width: 320px;
+	height: 42px;
+}
+.content{
+	width: 320px;
+	height: 453px;
+	background: url(../images/bj_3.jpg) no-repeat 0 40px;
+	background-size: 320px 414px;
+	position: relative;
+}
+.name,.sex,.time,.budget,.province,.city,.brand,.model{
+	width: 115px;
+	height: 20px;
+	background: #f7d733;
+	border: none;
+	position: absolute;
+	color: black;
+}
+.name::-webkit-input-placeholder,.phone::-webkit-input-placeholder,.mail::-webkit-input-placeholder {
+    color: black;
+}
+.name{
+	top: 106px;
+	left: 36px;
+}
+.sex{
+	top: 106px;
+	right: 36px;
+}
+.phone,.mail,.type,.dealer{
+	width: 248px;
+	height: 20px;
+	background:  #f7d733;
+	border: none;
+	position: absolute;
+}
+.phone{
+	top: 136px;
+	left: 36px;
+}
+.mail{
+	top: 166px;
+	left: 36px;
+}
+.time{
+	top: 196px;
+	left: 36px;
+}
+.budget{
+	top: 196px;
+	right: 36px;
+}
+.type{
+	top: 226px;
+	left: 36px;
+}
+.province{
+	top: 270px;
+	left: 36px;
+}
+.city{
+	top: 270px;
+	right: 36px;
+}
+.dealer{
+	top: 300px;
+	left: 36px;
+}
+.yes{
+	position: absolute;
+	top: 328px;
+	left: 156px;
+}
+.no{
+	position: absolute;
+	top: 328px;
+	left: 196px;
+}
+.brand{
+	bottom: 84px;
+	left: 36px;
+}
+.model{
+	bottom: 84px;
+	right: 36px;
+}
+.statement{
+	position: absolute;
+	bottom: 104px;
+	left: 36px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #f7d733;
+}
+.statement span{
+	position: absolute;
+	width: 260px;
+	top: 0;
+	left: 18px;
+}
+.statement input{
+	margin: 2px 0;
+}
+#submit{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	bottom: 43px;
+	left: 115px;
+}
+.bj{
+	width: 100%;
+	height: 525px;
+	background: black;
+	opacity: 0.7;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.share{
+	width: 302px;
+	height: 302px;
+	background: url(../images/share.png);
+	background-size: 302px 302px;
+	z-index: 5;
+	position: absolute;
+	top: 0;
+    display: none;
+}
+.share2{
+	width: 302px;
+	height: 302px;
+	background: url(../images/share2.png);
+	background-size: 302px 302px;
+	z-index: 5;
+	position: absolute;
+	top: 0;
+ 	display: none;
+}
+.close,.close2{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 10px;
+	left: 130px;
+}
+.weibo{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	bottom: 75px;
+	left: 105px;
+	z-index: 15;
+	display: none;
+}
+.sm_1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 320px;
+	display: none;
+	z-index: 2;
+}
+.gb_1{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 3;
+}
+/*footer样式*/
+.footer{
+	background: black;
+	width: 320px;
+	height: 16px;
+	line-height: 16px;
+	text-align: center;
+	font-size: 12px;
+	color: #fddd00;
+	position: relative;
+	bottom: 0;
+}

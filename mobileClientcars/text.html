@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>免责声明</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<style>
+*{
+	padding: 0;
+	margin: 0;
+}
+img{
+	width: 320px;
+}
+body{
+	position: relative;
+}
+.sub,.goback{
+	position: absolute;
+}
+.sub{
+	display: inline-block;
+	width: 60px;
+	height:44px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	left: 10px;
+	z-index: 6;
+}
+.goback{
+	display: inline-block;
+	position: absolute;
+	width: 160px;
+	height: 44px;
+	top: 0;
+	left: 90px;
+}
+</style>
+</head>
+<body onload="resetPage()">
+	<img src="images/text.jpg" alt="">
+	<a href="order.html?source=1" class="sub"></a>
+    <a href="index.html" class="goback"></a>
+</body>
+<script>
+function resetPage() {
+    var deviceWidth = document.documentElement.clientWidth,
+    scale = deviceWidth / 320;
+    document.body.style.zoom = scale;
+}
+window.onresize = function () {
+    resetPage();
+}
+</script>
+</html>

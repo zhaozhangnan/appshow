@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拍照选择</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<link rel="stylesheet" href="css/change.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/trackEvent.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/megapix-image.js"></script>
+    <script src="js/upload.js"></script>
+</head>
+<body onload="resetPage()">
+<div class="frame">
+	<div class="header">
+		<img src="images/header.png" alt="">
+        <a href="###" class="sub"></a>
+        <a href="###" class="goback"></a>
+	</div>
+	<div class="content">
+		<div class="content_1">
+			<p class="p"><img src="images/header_text.png" alt="" id="p_img"></p>
+			<img src="images/change1.png" alt="" class="h">
+			<img src="images/change2.png" alt="" class="s" style="display:block;">
+			<a href="###" class="heng"></a>
+			<a href="###" class="shu"></a>
+            <a id="button_1" href="javascript:;"></a>
+		</div>
+		<div class="content_2">
+            <img src="images/rotate.png" alt="" class="rotate" onclick="track(20,10494);">
+            <div id="h_small" class="rahmen_2">
+                <div></div>
+            </div>
+            <div id="s_small" class="rahmen_3">
+                <div></div>
+            </div>
+			<div class="demo_2">
+                <img src="images/demo1.jpg" alt="" class="focusimg">
+				<img src="images/demo2.jpg" alt="">
+				<img src="images/demo3.jpg" alt="">
+			</div>
+			<div class="button_2">
+                <a href="change2.html" class="again_2" onclick="track(20,10492);"></a>
+                <a href="javascript: createCard();" class="submit_2" onclick="track(20,10493);"></a>
+            </div>
+		</div>
+	</div>
+</div>
+    <div id="h_big" style="display:none"></div>
+    <div id="s_big" style="display:none"></div>
+    <div class="bj"></div>
+    <img src="images/share4.png" alt="" class="share3">
+    <img src="images/share5.png" alt="" class="share5">
+    <a href="###" class="guanbi"></a>
+    <div class="footer">
+		©2014 Volkswagen | 版权及免责声明
+	</div>
+    <script>
+        function QueryString() {
+            var name, value, i;
+            var str = location.href;
+            var num = str.indexOf("?");
+            str = str.substr(num + 1);
+            var arrtmp = str.split("&");
+            for (i = 0; i < arrtmp.length; i++) {
+                num = arrtmp[i].indexOf("=");
+                if (num > 0) {
+                    name = arrtmp[i].substring(0, num);
+                    value = arrtmp[i].substr(num + 1);
+                    this[name] = value;
+                }
+            }
+        }
+        var Request = new QueryString();
+        var h = Request['heng'];
+        if (h == 1) {
+            $('.h').css('display', 'none');
+            $('.s').css('display', 'block');
+            $('.shu').css({ 'top': '290px', 'left': '130px' });
+            $('.heng').css({ 'top': '140px', 'left': '40px' });
+            orient = 0;
+        } else {
+            $('.s').css('display', 'none');
+            $('.h').css('display', 'block');
+            $('.shu').css({ 'top': '260px', 'left': '86px' });
+            $('.heng').css({ 'top': '130px', 'left': '0px' });
+            orient = 1;
+        }
+        var deviceWidth = 0;
+        var deviceHeight = 0;
+        function resetPage() {
+            deviceWidth = document.documentElement.clientWidth;
+            deviceHeight = document.documentElement.clientHeight;
+            var scale = deviceWidth / 320;
+            document.body.style.zoom = scale;
+            $('.share3').css({'top':'100px','left':'9px'});
+            $('.share5').css({'top':'100px','left':'9px'});
+        }
+        window.onresize = function () {
+            resetPage();
+        }
+        /*选择切换*/
+        $('.heng').click('on', function () {
+            $('.h').css('display', 'none');
+            $('.s').css('display', 'block');
+            $('.shu').css({ 'top': '290px', 'left': '130px' });
+            $('.heng').css({ 'top': '140px', 'left': '40px' });
+            orient = 0;
+        });
+        $('.shu').click('on', function () {
+            $('.s').css('display', 'none');
+            $('.h').css('display', 'block');
+            $('.shu').css({ 'top': '260px', 'left': '86px' });
+            $('.heng').css({ 'top': '130px', 'left': '0px' });
+            orient = 1;
+        });
+        $(".demo_2 img").each(function (index) {
+            $(this).bind("click", function () {
+                f(index);
+                type = index;
+                newAdwoPS.setCover();
+            })
+        })
+        function f(i) {
+            $(".demo_2 img").each(function (index) {
+                (index == i) ? $(this).addClass("focusimg") : $(this).removeClass("focusimg");
+            })
+        }
+        /*点击预约试驾*/
+        $('.sub').click(function () {
+            window.location.href = "order.html?source=1";
+            track(20,10484);
+        });
+        $('.goback').click(function () {
+            window.location.href = "index.html";
+            track(20,10485);
+        });
+        $('.bj').click(function(){
+            $('.bj').hide();
+            $('.share3').hide();
+            window.location.href = "order.html";
+        });
+        $('.share3').click(function(){
+            $('.bj').hide();
+            $('.share3').hide();
+            window.location.href = "order.html";
+        });
+        /*尾部声明点击*/
+$('.footer').click(function(){
+    window.location.href = "text.html";
+});
+    </script>
+</body>
+</html>

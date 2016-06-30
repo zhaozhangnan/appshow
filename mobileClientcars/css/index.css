@@ -1,0 +1,152 @@
+*{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+body{
+	position: relative;
+}
+/*头部样式*/
+.header img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 320px;
+}
+.sub{
+	display: inline-block;
+	width: 60px;
+	height:44px;
+	position: absolute;
+	left: 10px;
+	z-index: 6;
+}
+/*content样式*/
+.content{
+	padding-top: 44px; 
+	background: #fde200;
+}
+#roll{
+	width: 320px;
+	height: 230px;
+	overflow: scroll;
+	margin: 0 auto;
+}
+#scroller{
+	width: 1600px;
+	height: 230px;
+}
+#scroller img{
+	width: 320px;
+	height: 230px;
+	float: left;
+}
+.change p{
+	width: 42px;
+	margin: 0 auto;
+	font-size: 14px;
+}
+.show{
+	padding: 10px 20px;
+	width: 219px;
+	height: 30px;
+}
+.text{
+
+	padding: 0 20px;
+	font-size: 12px;
+	background: url(../images/bj.jpg);
+	background-size: 320px 238px;
+}
+.text img{
+	width: 280px;
+	height: 114px;
+}
+.text a{
+	display: inline-block;
+	width: 218px;
+	height: 37px;
+	background: url(../images/button.png);
+	background-size: 218px 37px;
+	margin: 10px auto;
+	margin-left: 30px;
+}
+.left,.right{
+	position: absolute;
+	width: 45px;
+	height: 90px;
+}
+.left{
+	left: 0;
+	top: 150px;
+}
+.right{
+	right: 0;
+	top: 150px;
+}
+.bj{
+	width: 100%;
+	height: 536px;
+	background: black;
+	opacity: 0.7;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+.share{
+	width: 302px;
+	height: 302px;
+	background: url(../images/win.png);
+	background-size: 302px 302px;
+	z-index: 5;
+	position: absolute;
+	top: 0;
+	display: none;
+}
+.share3{
+	width: 302px;
+	height: 302px;
+	background: url(../images/share3.png);
+	background-size: 302px 302px;
+	z-index: 5;
+	position: absolute;
+	top: 0;
+}
+.close2{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 10px;
+	left: 130px;
+}
+.close{
+	display: inline-block;
+	position: absolute;
+	width: 110px;
+	height: 30px;
+	top: 305px;
+	left: 100px;
+	z-index: 10;
+	display: none;
+}
+.weibo{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	position: absolute;
+	bottom: 70px;
+	left: 100px;
+}
+/*footer样式*/
+.footer{
+	background: black;
+	width: 320px;
+	height: 16px;
+	line-height: 16px;
+	text-align: center;
+	font-size: 12px;
+	color: #fddd00;
+}

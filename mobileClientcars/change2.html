@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拍照选择</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="stylesheet" href="css/change.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/trackEvent.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/megapix-image.js"></script>
+    <script src="js/upload.js"></script>
+</head>
+<body onload="resetPage()">
+<div class="frame">
+    <div class="header">
+        <img src="images/header.png" alt="">
+        <a href="###" class="sub"></a>
+        <a href="###" class="goback"></a>
+    </div>
+    <div class="content">
+        <div class="content_1">
+            <p class="p"><img src="images/header_text.png" alt="" id="p_img"></p>
+            <img src="images/change0.png" alt=""  id="xuanze" style="display:block;">
+            <a href="###" class="_heng"></a>
+            <a href="###" class="_shu"></a>
+        </div>
+        <a id="button_2"></a>
+    </div>
+</div>
+    <div class="footer">
+        ©2014 Volkswagen | 版权及免责声明
+    </div>
+    <script>
+        function resetPage() {
+            var deviceWidth = document.documentElement.clientWidth,
+            scale = deviceWidth / 320;
+            document.body.style.zoom = scale;
+        }
+        window.onresize = function () {
+            resetPage();
+        }
+
+
+        $('._heng').click(function(){
+            window.location.href = "change.html?heng=0";
+            track(20,10490);
+        });
+        $('._shu').click(function(){
+            window.location.href = "change.html?heng=1";
+            track(20,10491);
+        });
+        $('.sub').click(function(){
+    window.location.href = "order.html?source=1";
+    track(20,10484);
+        });
+        $('.goback').click(function(){
+    window.location.href = "index.html";
+    track(20,10485);
+});
+        /*尾部声明点击*/
+$('.footer').click(function(){
+    window.location.href = "text.html";
+});
+track(20,10488);
+    </script>
+</body>
+</html>
